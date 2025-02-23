@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./db:/db
+      - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
+    environment:
+      MONGO_INITDB_DATABASE: funko_db
+
+  flask_app:
+    build: .
+    container_name: flask_funko_api
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+    env_file:
+      - .env
