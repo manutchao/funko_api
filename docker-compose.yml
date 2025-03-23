@@ -9,9 +9,9 @@ services:
       - "27017:27017"
     volumes:
       - ./db:/db
-      - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
+      - ./db/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
     environment:
-      MONGO_INITDB_DATABASE: funko_db
+      MONGO_INITDB_DATABASE: collectibles
 
   flask_app:
     build: .
